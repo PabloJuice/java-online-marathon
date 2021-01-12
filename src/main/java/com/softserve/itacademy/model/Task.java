@@ -14,8 +14,7 @@ public class Task {
     private long id;
 
     @NotBlank
-    @Min(3)
-    @Max(200)
+    @Size(min = 3, max = 200)
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -42,8 +41,8 @@ public class Task {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
-        this.priority = priority;
+    public void setPriority(String priority) {
+        this.priority = Priority.valueOf(priority);
     }
 
     public long getStateId() {
