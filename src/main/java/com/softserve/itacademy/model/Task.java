@@ -1,7 +1,10 @@
 package com.softserve.itacademy.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tasks")
@@ -11,6 +14,8 @@ public class Task {
     private long id;
 
     @NotBlank
+    @Min(3)
+    @Max(200)
     @Column(name = "name", nullable = false)
     private String name;
 
