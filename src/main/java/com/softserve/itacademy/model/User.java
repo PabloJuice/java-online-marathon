@@ -35,11 +35,11 @@ public class User  {
     @Column(name = "password")
     private String password;
 
-    private Role role;
-
-    @Id
-    @GeneratedValue
-    private long roleId = role.getId();
+//    private Role role;
+//
+//    @Id
+//    @GeneratedValue
+//    private long roleId = role.getId();
 
     public User() {
     }
@@ -47,9 +47,9 @@ public class User  {
     public long getId() {
         return id;
     }
-    public long getRoleId() {
-        return roleId;
-    }
+//    public long getRoleId() {
+//        return roleId;
+//    }
 
     public String getFirstName() {
         return firstName;
@@ -83,11 +83,11 @@ public class User  {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+//    public Role getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(Role role) {
+//        this.role = role;
+//    }
 }

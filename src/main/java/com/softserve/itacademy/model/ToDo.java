@@ -26,8 +26,8 @@ public class ToDo {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    private User owner;
-    private long ownerId = owner.getId();
+//    private User owner;
+//    private long ownerId = owner.getId();
     public ToDo(){
         this.createdAt = LocalDateTime.now();
     }
@@ -48,11 +48,11 @@ public class ToDo {
         this.createdAt = createdAt;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
+//    public User getOwner() {
+//        return owner;
+//    }
+//
+//    public void setOwner(User owner) {
+//        this.owner = owner;
+//    }
 }
