@@ -36,11 +36,10 @@ public class User  {
     @Column(name = "password", nullable = false)
     private String password;
 
-//    private Role role;
-//
-//    @Id
-//    @GeneratedValue
-//    private long roleId = role.getId();
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
 
     public User() {
     }
