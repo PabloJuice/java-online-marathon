@@ -19,7 +19,7 @@ public class ToDo {
     private long id;
 
     @NotBlank
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false, unique = true)
     private String title;
 
     @Column(name = "created_at", nullable = false)
@@ -31,6 +31,9 @@ public class ToDo {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @OneToMany(mappedBy = "todo")
+    List<Task> tasks;
 
     public ToDo(){
         this.createdAt = LocalDateTime.now();
@@ -52,13 +55,13 @@ public class ToDo {
         this.createdAt = createdAt;
     }
 
-//    public User getOwner() {
-//        return owner;
-//    }
-//
-//    public void setOwner(User owner) {
-//        this.owner = owner;
-//    }
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
 
     @Override
