@@ -1,11 +1,11 @@
 package com.softserve.itacademy.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jdk.internal.dynalink.linker.LinkerServices;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 @Table(name = "states")
@@ -17,6 +17,9 @@ public class State {
     @Pattern(regexp = "^(\\w{3,20})(\\s)+(-)+$")
     @Column(nullable = false, unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "state")
+    List<Task> tasks;
 
     public long getId() { return id; }
 

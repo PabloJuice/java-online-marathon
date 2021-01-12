@@ -1,8 +1,6 @@
 package com.softserve.itacademy.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -19,11 +17,16 @@ public class Task {
     private String name;
 
     @NotBlank
-    @Column(name = "priority", nullable = false)
-    private Priority priority;
+    @Column(name = "priority")
+    private String priority;
 
-    private long stateId;
-    private long todoId;
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    State state;
+
+    @ManyToOne
+    @JoinColumn(name = "todo_id")
+    ToDo todo;
 
     public long getId() {
         return id;
@@ -37,20 +40,12 @@ public class Task {
         this.name = name;
     }
 
-    public Priority getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
-        this.priority = Priority.valueOf(priority);
-    }
-
-    public long getStateId() {
-        return stateId;
-    }
-
-    public long getTodoId() {
-        return todoId;
+    public void setPriority(Priority priority) {
+        this.priority = priority.toString();
     }
 
     @Override
@@ -58,7 +53,6 @@ public class Task {
         return "Task{" +
                 "name='" + name + '\'' +
                 ", priority=" + priority +
-                ", stateId=" + stateId +
                 '}';
     }
 }
