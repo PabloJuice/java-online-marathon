@@ -19,12 +19,12 @@ public class User  {
     private long id;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z-]+$")
+    @Pattern(regexp = "^([-]?[A-Z][a-z]+)+$")
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z-]+$")
+    @Pattern(regexp = "^([-]?[A-Z][a-z]+)+$")
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
@@ -35,7 +35,7 @@ public class User  {
 
     @NotNull
     @NotBlank
-    @Pattern(regexp = "^\\w{8,}(!)+$")
+    @Pattern(regexp = "^\\w{5,}[@$!%*?&]+$")
     @Column(name = "password", nullable = false)
     private String password;
 
