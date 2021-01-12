@@ -11,11 +11,11 @@ public class Task {
     private long id;
 
     @NotBlank
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @NotBlank
-    @Column(name = "priority")
+    @Column(name = "priority", nullable = false)
     private Priority priority;
 
     private long stateId;
@@ -47,5 +47,14 @@ public class Task {
 
     public long getTodoId() {
         return todoId;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", priority=" + priority +
+                ", stateId=" + stateId +
+                '}';
     }
 }

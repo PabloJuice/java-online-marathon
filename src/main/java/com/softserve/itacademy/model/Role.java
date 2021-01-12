@@ -28,8 +28,8 @@ public class Role {
     @Column(nullable = false, unique = true)
     private String name;
 
-//    @OneToMany(mappedBy = "role")
-//    private List<User> users;
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 
     public Role() {
     }

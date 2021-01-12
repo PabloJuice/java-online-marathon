@@ -19,11 +19,10 @@ public class ToDo {
     private long id;
 
     @NotBlank
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @NotBlank
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
 //    private User owner;
@@ -55,4 +54,13 @@ public class ToDo {
 //    public void setOwner(User owner) {
 //        this.owner = owner;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "ToDo{" +
+                "title='" + title + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
