@@ -36,9 +36,12 @@ public class User  {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "owner")
+    private List<ToDo> todos;
 
     @ManyToMany
     @JoinTable(name = "todo_collaborator",
@@ -48,7 +51,7 @@ public class User  {
             inverseJoinColumns = {
                     @JoinColumn(name = "todo_id", referencedColumnName = "id",
                             nullable = false)})
-    private List<ToDo> todos;
+    private List<ToDo> collaborations;
 
     public User() {
     }

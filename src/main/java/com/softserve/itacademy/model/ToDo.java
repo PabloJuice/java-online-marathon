@@ -25,11 +25,13 @@ public class ToDo {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @ManyToMany(mappedBy = "todos")
+    @ManyToMany(mappedBy = "collaborations")
     List<User> collaborators;
 
-//    private User owner;
-//    private long ownerId = owner.getId();
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
     public ToDo(){
         this.createdAt = LocalDateTime.now();
     }
