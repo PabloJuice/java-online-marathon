@@ -39,13 +39,16 @@ public class User  {
 
     @Id
     @GeneratedValue
-    private long role_id = role.getId();
+    private long roleId = role.getId();
 
     public User() {
     }
 
     public long getId() {
         return id;
+    }
+    public long getRoleId() {
+        return roleId;
     }
 
     public String getFirstName() {
