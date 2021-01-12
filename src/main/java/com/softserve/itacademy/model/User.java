@@ -40,6 +40,15 @@ public class User  {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    @ManyToMany
+    @JoinTable(name = "todo_collaborator",
+            joinColumns = {
+                    @JoinColumn(name = "collaborator_id", referencedColumnName = "id",
+                            nullable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "todo_id", referencedColumnName = "id",
+                            nullable = false)})
+    private List<ToDo> todos;
 
     public User() {
     }
@@ -47,9 +56,6 @@ public class User  {
     public long getId() {
         return id;
     }
-//    public long getRoleId() {
-//        return roleId;
-//    }
 
     public String getFirstName() {
         return firstName;
@@ -83,13 +89,13 @@ public class User  {
         this.password = password;
     }
 
-//    public Role getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(Role role) {
-//        this.role = role;
-//    }
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
 
     @Override

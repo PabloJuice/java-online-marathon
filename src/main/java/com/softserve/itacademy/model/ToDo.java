@@ -25,6 +25,9 @@ public class ToDo {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @ManyToMany(mappedBy = "todos")
+    List<User> collaborators;
+
 //    private User owner;
 //    private long ownerId = owner.getId();
     public ToDo(){
