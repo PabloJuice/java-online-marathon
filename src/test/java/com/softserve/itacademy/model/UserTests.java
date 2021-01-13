@@ -61,7 +61,6 @@ public class UserTests {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(validUser);
-
         assertEquals(0, violations.size());
     }
 
@@ -181,6 +180,7 @@ public class UserTests {
         user.setPassword(validUser.getPassword());
         user.setRole(traineeRole);
         user.setTodos(input);
+        assertEquals(input, user.getTodos());
         assertEquals(input, expectedResult);
 
     }
