@@ -40,7 +40,7 @@ public class User  {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<ToDo> todos;
 
     @ManyToMany
