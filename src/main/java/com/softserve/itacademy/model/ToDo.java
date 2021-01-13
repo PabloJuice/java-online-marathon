@@ -29,7 +29,7 @@ public class ToDo {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(mappedBy = "todo")
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
     public long getId() {
