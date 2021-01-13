@@ -93,7 +93,7 @@ public class UserTests {
 
     @ParameterizedTest
     @MethodSource("provideInvalidPasswordUser")
-    void checkUserWithInvalidPassword(String input, String errorValue) {
+    void checkUserWithInvalidPassword(String input, String errorValue, int violationCount) {
         User user = new User();
         user.setEmail(validUser.getEmail());
         user.setFirstName(validUser.getFirstName());
@@ -104,23 +104,25 @@ public class UserTests {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertEquals(1, violations.size());
+        assertEquals(violationCount, violations.size());
         assertEquals(errorValue, violations.iterator().next().getInvalidValue());
     }
 
     private static Stream<Arguments> provideInvalidPasswordUser(){
         return Stream.of(
-                Arguments.of("invalidpassword", "invalidpassword"),
-                Arguments.of("12345678", "12345678"),
-                Arguments.of("abc@$!%*?&", "abc@$!%*?&"),
-                Arguments.of("213@$!%*?&", "213@$!%*?&"),
-                Arguments.of("12345abcd", "12345abcd")
+                Arguments.of("invalidpassword", "invalidpassword", 1),
+                Arguments.of("12345678", "12345678", 1),
+                Arguments.of("abc@$!%*?&", "abc@$!%*?&", 1),
+                Arguments.of("213@$!%*?&", "213@$!%*?&", 1),
+                Arguments.of("12345abcd", "12345abcd", 1),
+                Arguments.of(" ", " ", 2),
+                Arguments.of(null, null, 1)
         );
     }
 
     @ParameterizedTest
     @MethodSource("provideInvalidFirstNameUser")
-    void checkUserWithInvalidFirstName(String input, String errorValue) {
+    void checkUserWithInvalidFirstName(String input, String errorValue, int violationCount) {
         User user = new User();
         user.setEmail(validUser.getEmail());
         user.setFirstName(input);
@@ -130,16 +132,18 @@ public class UserTests {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertEquals(1, violations.size());
+        assertEquals(violationCount, violations.size());
         assertEquals(errorValue, violations.iterator().next().getInvalidValue());
     }
 
     private static Stream<Arguments> provideInvalidFirstNameUser(){
         return Stream.of(
-                Arguments.of("invalid", "invalid"),
-                Arguments.of("1234 abcd", "1234 abcd"),
-                Arguments.of("Invalid-", "Invalid-"),
-                Arguments.of("Invalid-invalid", "Invalid-invalid")
+                Arguments.of("invalid", "invalid", 1),
+                Arguments.of("1234 abcd", "1234 abcd", 1),
+                Arguments.of("Invalid-", "Invalid-", 1),
+                Arguments.of("Invalid-invalid", "Invalid-invalid", 1),
+                Arguments.of(" ", " ", 2),
+                Arguments.of(null, null, 1)
         );
     }
 
@@ -168,35 +172,44 @@ public class UserTests {
     }
 
     @ParameterizedTest
-    @MethodSource("provideInvalidToDos")
-    void checkUserWithInvalidToDos(List<ToDo> input, List<ToDo> errorValue){
+    @MethodSource("provideToDos")
+    void checkUserToDos(List<ToDo> input, List<ToDo> expectedResult){
         User user = new User();
         user.setEmail(validUser.getEmail());
         user.setFirstName(validUser.getFirstName());
         user.setLastName(validUser.getLastName());
         user.setPassword(validUser.getPassword());
         user.setRole(traineeRole);
-
         user.setTodos(input);
+        assertEquals(input, expectedResult);
 
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertEquals(1, violations.size());
-        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
     }
-    private static Stream<Arguments> provideInvalidToDos(){
-        Task invalidTask1 = new Task();
-        Task invalidTask2 = new Task();
-        Task invalidTask3 = new Task();
-        invalidTask1.setName("Task1");
-        invalidTask1.setPriority(Priority.HIGH);
-        invalidTask2.setName("Task2");
-        invalidTask2.setPriority(Priority.LOW);
-        invalidTask3.setName("Task3");
-        invalidTask3.setPriority(Priority.MEDIUM);
+    private static Stream<Arguments> provideToDos(){
+        Task task1 = new Task();
+        Task task2 = new Task();
+        Task task3 = new Task();
+        task1.setName("Task1");
+        task1.setPriority(Priority.HIGH);
+        task2.setName("Task2");
+        task2.setPriority(Priority.LOW);
+        task3.setName("Task3");
+        task3.setPriority(Priority.MEDIUM);
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(task1);
+        taskList.add(task2);
+        taskList.add(task3);
+        ToDo toDo1 = new ToDo();
+        toDo1.setTasks(taskList);
+
+        List<ToDo> emptyToDoList = new ArrayList<>();
+        List<ToDo> toDoList = new ArrayList<>();
+        toDoList.add(toDo1);
 
         return Stream.of(
+                Arguments.of(
+                        toDoList, toDoList),
+                Arguments.of(
+                        emptyToDoList, emptyToDoList),
                 Arguments.of(
                         null, null)
         );

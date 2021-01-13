@@ -14,7 +14,7 @@ public class State {
     @Id
     private long id;
     @NotBlank(message = "The stateName cannot be empty")
-    @Pattern(regexp = "^(\\w{3,20})(\\s)+(-)+$")
+    @Pattern(regexp = "^[-\\w\\s]{1,20}$")
     @Column(nullable = false, unique = true)
     private String name;
 

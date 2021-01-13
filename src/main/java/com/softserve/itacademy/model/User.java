@@ -65,7 +65,9 @@ public class User  {
     }
 
     public void setTodos(List<ToDo> todos) {
-        this.todos = todos;
+        if (todos != null && todos != this.todos){
+            this.todos = todos;
+        }
     }
 
     public String getFirstName() {

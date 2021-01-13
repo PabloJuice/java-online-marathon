@@ -1,17 +1,15 @@
 package com.softserve.itacademy.model;
 
+import com.sun.istack.internal.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "todos")
@@ -21,6 +19,7 @@ public class ToDo {
     private long id;
 
     @NotBlank
+    @NotEmpty
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
@@ -36,6 +35,10 @@ public class ToDo {
 
     @OneToMany(mappedBy = "todo")
     private List<Task> tasks;
+
+    public long getId() {
+        return id;
+    }
 
     public ToDo(){
         this.createdAt = LocalDateTime.now();
