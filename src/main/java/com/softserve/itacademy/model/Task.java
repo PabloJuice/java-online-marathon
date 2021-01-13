@@ -51,12 +51,4 @@ public class Task {
         this.priority = priority;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", priority=" + priority +
-                '}';
-    }
 }

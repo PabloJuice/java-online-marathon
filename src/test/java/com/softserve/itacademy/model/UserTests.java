@@ -190,12 +190,11 @@ public class UserTests {
         Task invalidTask2 = new Task();
         Task invalidTask3 = new Task();
         invalidTask1.setName("Task1");
-        invalidTask1.setPriority(null);
+        invalidTask1.setPriority(Priority.HIGH);
         invalidTask2.setName("Task2");
         invalidTask2.setPriority(Priority.LOW);
         invalidTask3.setName("Task3");
         invalidTask3.setPriority(Priority.MEDIUM);
-
 
         return Stream.of(
                 Arguments.of(
