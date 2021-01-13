@@ -167,40 +167,40 @@ public class UserTests {
         );
     }
 
-//    @ParameterizedTest
-//    @MethodSource("provideInvalidToDos")
-//    void checkUserWithInvalidToDos(List<ToDo> input, List<ToDo> errorValue){
-//        User user = new User();
-//        user.setEmail(validUser.getEmail());
-//        user.setFirstName(validUser.getFirstName());
-//        user.setLastName(validUser.getLastName());
-//        user.setPassword(validUser.getPassword());
-//        user.setRole(traineeRole);
-//
-//        user.setTodos(input);
-//
-//        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//        Validator validator = factory.getValidator();
-//        Set<ConstraintViolation<User>> violations = validator.validate(user);
-//        assertEquals(1, violations.size());
-//        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
-//    }
-//    private static Stream<Arguments> provideInvalidToDos(){
-//        Task invalidTask1 = new Task();
-//        Task invalidTask2 = new Task();
-//        Task invalidTask3 = new Task();
-//        invalidTask1.setName("Task1");
-//        invalidTask1.setPriority(null);
-//        invalidTask2.setName("Task2");
-//        invalidTask2.setPriority(Priority.LOW);
-//        invalidTask3.setName("Task3");
-//        invalidTask3.setPriority(Priority.MEDIUM);
-//
-//
-//        return Stream.of(
-//                Arguments.of(
-//                        new ArrayList<ToDo>(), new ArrayList<ToDo>())
-//        );
-//    }
+    @ParameterizedTest
+    @MethodSource("provideInvalidToDos")
+    void checkUserWithInvalidToDos(List<ToDo> input, List<ToDo> errorValue){
+        User user = new User();
+        user.setEmail(validUser.getEmail());
+        user.setFirstName(validUser.getFirstName());
+        user.setLastName(validUser.getLastName());
+        user.setPassword(validUser.getPassword());
+        user.setRole(traineeRole);
+
+        user.setTodos(input);
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertEquals(1, violations.size());
+        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
+    }
+    private static Stream<Arguments> provideInvalidToDos(){
+        Task invalidTask1 = new Task();
+        Task invalidTask2 = new Task();
+        Task invalidTask3 = new Task();
+        invalidTask1.setName("Task1");
+        invalidTask1.setPriority(null);
+        invalidTask2.setName("Task2");
+        invalidTask2.setPriority(Priority.LOW);
+        invalidTask3.setName("Task3");
+        invalidTask3.setPriority(Priority.MEDIUM);
+
+
+        return Stream.of(
+                Arguments.of(
+                        null, null)
+        );
+    }
 
 }

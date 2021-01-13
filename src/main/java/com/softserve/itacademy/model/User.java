@@ -4,10 +4,7 @@ import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +31,6 @@ public class User  {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @NotNull
     @NotBlank
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
     @Column(name = "password", nullable = false)
