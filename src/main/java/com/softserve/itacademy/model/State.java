@@ -4,6 +4,7 @@ import jdk.internal.dynalink.linker.LinkerServices;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class State {
 
     @Id
     private long id;
+    @NotEmpty
     @NotBlank(message = "The stateName cannot be empty")
     @Pattern(regexp = "^[-\\w\\s]{1,20}$")
     @Column(nullable = false, unique = true)
