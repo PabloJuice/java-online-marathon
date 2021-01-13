@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -26,14 +27,14 @@ public class ToDo {
     private LocalDateTime createdAt;
 
     @ManyToMany(mappedBy = "collaborations")
-    List<User> collaborators;
+    private List<User> collaborators;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 
     @OneToMany(mappedBy = "todo")
-    List<Task> tasks;
+    private List<Task> tasks;
 
     public ToDo(){
         this.createdAt = LocalDateTime.now();
@@ -41,6 +42,14 @@ public class ToDo {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void setTitle(String title) {
@@ -63,12 +72,14 @@ public class ToDo {
         this.owner = owner;
     }
 
-
     @Override
     public String toString() {
         return "ToDo{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", createdAt=" + createdAt +
+                ", owner=" + owner +
+                ", tasks=" + tasks +
                 '}';
     }
 }

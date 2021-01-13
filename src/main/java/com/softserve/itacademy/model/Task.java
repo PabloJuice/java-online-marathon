@@ -2,7 +2,9 @@ package com.softserve.itacademy.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tasks")
@@ -16,9 +18,10 @@ public class Task {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotBlank
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "priority")
-    private String priority;
+    private Priority priority;
 
     @ManyToOne
     @JoinColumn(name = "state_id")
@@ -40,18 +43,19 @@ public class Task {
         this.name = name;
     }
 
-    public String getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
     public void setPriority(Priority priority) {
-        this.priority = priority.toString();
+        this.priority = priority;
     }
 
     @Override
     public String toString() {
         return "Task{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", priority=" + priority +
                 '}';
     }

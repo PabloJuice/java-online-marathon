@@ -10,6 +10,9 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -29,7 +32,7 @@ public class UserTests {
         mentorRole.setName("MENTOR");
         traineeRole = new Role();
         traineeRole.setName("TRAINEE");
-        validUser  = new User();
+        validUser = new User();
         validUser.setEmail("valid@cv.edu.ua");
         validUser.setFirstName("Valid-Name");
         validUser.setLastName("Valid-Name");
@@ -38,14 +41,13 @@ public class UserTests {
     }
 
     @Test
-    void userWithValidEmail() {
+    void checkUserWithValidEmail() {
         User user = new User();
         user.setEmail("rty5@i.ua");
         user.setFirstName("Valid-Name");
         user.setLastName("Valid-Name");
         user.setPassword("qwQW12!@");
         user.setRole(traineeRole);
-
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -55,7 +57,7 @@ public class UserTests {
     }
 
     @Test
-    void createValidUser() {
+    void checkValidUserCreation() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(validUser);
@@ -65,12 +67,12 @@ public class UserTests {
 
     @ParameterizedTest
     @MethodSource("provideInvalidEmailUser")
-    void constraintViolationInvalid(String input, String errorValue) {
+    void checkUserWithInvalidEmail(String input, String errorValue) {
         User user = new User();
         user.setEmail(input);
-        user.setFirstName("Valid-Name");
-        user.setLastName("Valid-Name");
-        user.setPassword("qwQW12!@");
+        user.setFirstName(validUser.getFirstName());
+        user.setLastName(validUser.getLastName());
+        user.setPassword(validUser.getPassword());
         user.setRole(traineeRole);
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -90,15 +92,41 @@ public class UserTests {
     }
 
     @ParameterizedTest
+    @MethodSource("provideInvalidPasswordUser")
+    void checkUserWithInvalidPassword(String input, String errorValue) {
+        User user = new User();
+        user.setEmail(validUser.getEmail());
+        user.setFirstName(validUser.getFirstName());
+        user.setLastName(validUser.getLastName());
+        user.setPassword(input);
+        user.setRole(traineeRole);
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertEquals(1, violations.size());
+        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
+    }
+
+    private static Stream<Arguments> provideInvalidPasswordUser(){
+        return Stream.of(
+                Arguments.of("invalidpassword", "invalidpassword"),
+                Arguments.of("12345678", "12345678"),
+                Arguments.of("abc@$!%*?&", "abc@$!%*?&"),
+                Arguments.of("213@$!%*?&", "213@$!%*?&"),
+                Arguments.of("12345abcd", "12345abcd")
+        );
+    }
+
+    @ParameterizedTest
     @MethodSource("provideInvalidFirstNameUser")
-    void constraintViolationInvalidFirstName(String input, String errorValue) {
+    void checkUserWithInvalidFirstName(String input, String errorValue) {
         User user = new User();
         user.setEmail(validUser.getEmail());
         user.setFirstName(input);
-        user.setLastName("Valid-Name");
-        user.setPassword("qwQW12!@");
+        user.setLastName(validUser.getLastName());
+        user.setPassword(validUser.getPassword());
         user.setRole(traineeRole);
-
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -109,9 +137,70 @@ public class UserTests {
     private static Stream<Arguments> provideInvalidFirstNameUser(){
         return Stream.of(
                 Arguments.of("invalid", "invalid"),
+                Arguments.of("1234 abcd", "1234 abcd"),
                 Arguments.of("Invalid-", "Invalid-"),
                 Arguments.of("Invalid-invalid", "Invalid-invalid")
         );
     }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidLastNameUser")
+    void checkUserWithInvalidLastName(String input, String errorValue) {
+        User user = new User();
+        user.setEmail(validUser.getEmail());
+        user.setFirstName(validUser.getFirstName());
+        user.setLastName(input);
+        user.setPassword(validUser.getPassword());
+        user.setRole(traineeRole);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertEquals(1, violations.size());
+        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
+    }
+
+    private static Stream<Arguments> provideInvalidLastNameUser(){
+        return Stream.of(
+                Arguments.of("invalid", "invalid"),
+                Arguments.of("Invalid-", "Invalid-"),
+                Arguments.of("Invalid-invalid", "Invalid-invalid")
+        );
+    }
+
+//    @ParameterizedTest
+//    @MethodSource("provideInvalidToDos")
+//    void checkUserWithInvalidToDos(List<ToDo> input, List<ToDo> errorValue){
+//        User user = new User();
+//        user.setEmail(validUser.getEmail());
+//        user.setFirstName(validUser.getFirstName());
+//        user.setLastName(validUser.getLastName());
+//        user.setPassword(validUser.getPassword());
+//        user.setRole(traineeRole);
+//
+//        user.setTodos(input);
+//
+//        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//        Validator validator = factory.getValidator();
+//        Set<ConstraintViolation<User>> violations = validator.validate(user);
+//        assertEquals(1, violations.size());
+//        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
+//    }
+//    private static Stream<Arguments> provideInvalidToDos(){
+//        Task invalidTask1 = new Task();
+//        Task invalidTask2 = new Task();
+//        Task invalidTask3 = new Task();
+//        invalidTask1.setName("Task1");
+//        invalidTask1.setPriority(null);
+//        invalidTask2.setName("Task2");
+//        invalidTask2.setPriority(Priority.LOW);
+//        invalidTask3.setName("Task3");
+//        invalidTask3.setPriority(Priority.MEDIUM);
+//
+//
+//        return Stream.of(
+//                Arguments.of(
+//                        new ArrayList<ToDo>(), new ArrayList<ToDo>())
+//        );
+//    }
 
 }

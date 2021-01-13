@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -35,7 +36,7 @@ public class User  {
 
     @NotNull
     @NotBlank
-    @Pattern(regexp = "^\\w{5,}[@$!%*?&]+$")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -61,6 +62,14 @@ public class User  {
 
     public long getId() {
         return id;
+    }
+
+    public List<ToDo> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<ToDo> todos) {
+        this.todos = todos;
     }
 
     public String getFirstName() {
@@ -103,13 +112,15 @@ public class User  {
         this.role = role;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }
