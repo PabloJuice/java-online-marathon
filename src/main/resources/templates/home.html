@@ -5,6 +5,19 @@
     <title>Home page</title>
 </head>
 <body>
-
+	<h2>
+	<table>
+		<tr>
+			<th>LastName</th> <th>FirstName</th>
+			<th></th>
+		</tr>
+		<tr th:each="user: ${users}">
+			<td th:text = "${user.lastName}" />
+			<td th:text = "${user.firstName}" />
+			
+			
+		</tr>
+	</table>
+	</h2>
 </body>
 </html>
