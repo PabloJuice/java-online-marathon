@@ -35,7 +35,7 @@
                 <td th:text = "${user.id}"></td>
                 <td><a th:href="@{/todos/all/users/} + ${user.id}" th:text="${user.lastName} +' ' + ${user.firstName}"></a></td>
                 <td th:text = "${user.email}"></td>
-                <td><a href="">Edit</a></td>
+                <td><a th:href="@{/users/update/{user_id}(user_id = ${user.id})}">Edit</a></td>
                 <td><a th:href="@{/users/delete/{user_id}(user_id = ${user.id})}">Remove</a></td>
             </tr>
         </tbody>
