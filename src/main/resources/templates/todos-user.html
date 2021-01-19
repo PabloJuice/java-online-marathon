@@ -34,7 +34,7 @@
         <tr th:each = "todo, state : ${todos}">
             <td th:text = "${state.count}"></td>
             <td th:text = "${todo.id}"></td>
-            <td><a href="#" th:text="${todo.title}"></a></td>
+            <td><a th:href="@{/tasks/all/todos/{todo_id}(todo_id = ${todo.id})}" th:text="${todo.title}"></a></td>
             <td th:text = "${todo.createdAt.toLocalDate()}"></td>
             <td th:text = "${todo.owner.firstName} +' '+ ${todo.owner.lastName}"></td>
             <td><a href="">Edit</a></td>
