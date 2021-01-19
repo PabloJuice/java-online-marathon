@@ -8,6 +8,22 @@
     <link href="styles/style.css" rel="stylesheet"/>
 </head>
 <body>
-
+<h2>
+	<table>
+		<tr>
+			<th>Id</th>  <th>Title</th>  <th>Created At</th>  <th>Owner</th>
+			<th></th>
+		</tr>
+		<tr th:each="todo: ${todos}">
+			<td th:text = "${todo.id}" />
+			<td th:text = "${todo.title}" />
+			<td th:text = "${todo.createdAt.toLocalDate()}" />
+			<td th:text = "${todo.owner.firstName} +' '+ ${todo.owner.lastName}" 
+				/>
+			
+			
+		</tr>
+	</table>
+	</h2>
 </body>
 </html>
