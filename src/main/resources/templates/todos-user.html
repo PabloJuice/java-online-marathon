@@ -31,12 +31,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>10</td>
-            <td><a href="">Nick Green</a></td>
-            <td>2020</td>
-            <td>Nick Green</td>
+        <tr th:each = "todo, state : ${todos}">
+            <td th:text = "${state.count}"></td>
+            <td th:text = "${todo.id}"></td>
+            <td><a href="#" th:text="${todo.title}"></a></td>
+            <td th:text = "${todo.createdAt.toLocalDate()}"></td>
+            <td th:text = "${todo.owner.firstName} +' '+ ${todo.owner.lastName}"></td>
             <td><a href="">Edit</a></td>
             <td><a href="">Remove</a></td>
         </tr>

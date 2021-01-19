@@ -19,7 +19,7 @@ public class ToDoController {
 	public String getAll(@PathVariable(name = "user_id") long userId, 
 			Model model) {
       model.addAttribute("todos",toDoService.getByUserId(userId));
-      return "todo-lists";
+      return "todos-user";
   }
 
 //    @GetMapping("/create/users/{owner_id}")
