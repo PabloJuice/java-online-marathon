@@ -15,6 +15,6 @@ public class HomeController {
     @GetMapping({"/", "home"})
     public String home(Model model) {
     	model.addAttribute("users", userService.getAll());
-        return "update-user";
+        return "home";
     }
 }
