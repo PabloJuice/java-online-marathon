@@ -32,8 +32,8 @@
         <tbody>
             <tr th:each = "user, state: ${users}">
                 <td th:text = "${state.count}"></td>
-                <td th:text = "${user.id}">5</td>
-                <td><a href="" th:text="${user.lastName} +' ' + ${user.firstName}"></a></td>
+                <td th:text = "${user.id}"></td>
+                <td><a th:href="@{/todos/all/users/} + ${user.id}" th:text="${user.lastName} +' ' + ${user.firstName}"></a></td>
                 <td th:text = "${user.email}"></td>
                 <td><a href="">Edit</a></td>
                 <td><a href="">Remove</a></td>
