@@ -3,8 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Task</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="/styles/style.css" rel="stylesheet"/>
 </head>
 <body>
-
+    <header>
+        <a href="/home">
+            TODOs List
+        </a>
+    </header>
+    <h1>
+        Update Task
+    </h1>
+    <div class="name-input-block">
+        <p>ID:</p><input type="text" name="taskID" class="text-input" value="id123" readonly>
+    </div>
+    <div class="name-input-block">
+        <p>Name:</p><input type="text" name="taskName" class="text-input"  value="name123">
+    </div>
+    <div class="name-input-block">
+        <p>Priority:</p>
+        <select name="priority" class="selection">
+            <option value="LOW" selected>Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+        </select>
+    </div>
+    <div class="name-input-block">
+        <p>Status:</p>
+        <select name="status" class="selection">
+            <option value="New" selected>New</option>
+            <option value="Processing">Processing</option>
+            <option value="Done">Done</option>
+        </select>
+    </div>
+    <div class="name-input-block">
+        <input type="submit" value="Register" class="submit-btn">
+        <input type="reset" value="Clear" class="submit-btn">
+    </div>
 </body>
 </html>

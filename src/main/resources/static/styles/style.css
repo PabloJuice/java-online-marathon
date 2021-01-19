@@ -4,7 +4,6 @@
     margin: 0;
 }
 body{
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +27,7 @@ h1{
     align-self: center;
     margin: 1%;
 }
-button{
+button, .submit-btn{
     outline: none;
     background-color:#0066ff;
     border-radius:15px;
@@ -42,6 +41,9 @@ button{
     text-shadow:1px 1px 5px #2f6627;
     margin: 2% 5% 5% 5%;
     align-self: flex-end;
+}
+button:hover, .submit-btn:hover{
+    background-color: black;
 }
 table{
     text-align: center;
@@ -58,4 +60,40 @@ table a{
     outline: none;
     text-decoration: none;
     color: #0066ff;
+}
+
+.name-input-block{
+    width: 50%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+}
+.name-input-block *{
+    margin: 3% 0;
+}
+.name-input-block p{
+    text-align: end;
+    font-weight: 600;
+    min-width: 100px;
+    padding-right: 2%;
+}
+.text-input{
+    width: 50%;
+    padding: 5px 7px;
+    font-size: 16px;
+}
+.selection{
+    width: 54%;
+    padding: 5px 7px;
+    font-size: 16px;
+}
+.submit-btn{
+    min-width: 55px;
+    font-size: 15px;
+    padding: 15px 10%;
+    margin: 3%;
+    align-self: center;
 }

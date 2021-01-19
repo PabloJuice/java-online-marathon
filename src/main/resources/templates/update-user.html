@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Update User</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet"/>
 </head>
 <body>
-
+    <header>
+        <a href="/home">
+            TODOs List
+        </a>
+    </header>
+    <h1>
+        Update User
+    </h1>
+    <div class="name-input-block">
+        <p>ID:</p><input type="text" name="userID" class="text-input" value="id123" readonly>
+    </div>
+    <div class="name-input-block">
+        <p>First name:</p><input type="text" name="firstName" class="text-input"  value="name123">
+    </div>
+    <div class="name-input-block">
+        <p>Last name:</p><input type="text" name="lastName" class="text-input"  value="name123">
+    </div>
+    <div class="name-input-block">
+        <p>E-mail:</p><input type="text" name="email" class="text-input" value="email123">
+    </div>
+    <div class="name-input-block">
+        <p>Old Password:</p><input type="text" name="passwordOld" class="text-input">
+    </div>
+    <div class="name-input-block">
+        <p>Old Password:</p><input type="text" name="passwordNew" class="text-input">
+    </div>
+    <div class="name-input-block">
+        <p>Role:</p>
+        <select name="role" class="selection">
+            <option value="Role1" selected>Role1</option>
+        </select>
+    </div>
+    <div class="name-input-block">
+        <input type="submit" value="Register" class="submit-btn">
+        <input type="reset" value="Clear" class="submit-btn">
+    </div>
 </body>
 </html>
