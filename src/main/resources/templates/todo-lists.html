@@ -5,25 +5,9 @@
     <title>List of Users</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="styles/style.css" rel="stylesheet"/>
+    <link href="/styles/style.css" rel="stylesheet"/>
 </head>
 <body>
-<h2>
-	<table>
-		<tr>
-			<th>Id</th>  <th>Title</th>  <th>Created At</th>  <th>Owner</th>
-			<th></th>
-		</tr>
-		<tr th:each="todo: ${todos}">
-			<td th:text = "${todo.id}" />
-			<td th:text = "${todo.title}" />
-			<td th:text = "${todo.createdAt.toLocalDate()}" />
-			<td th:text = "${todo.owner.firstName} +' '+ ${todo.owner.lastName}" 
-				/>
-			
-			
-		</tr>
-	</table>
-	</h2>
+<!--СМІТТЯ?-->
 </body>
 </html>
