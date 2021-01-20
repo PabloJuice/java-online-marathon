@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.softserve.itacademy.model.Task;
+import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.StateService;
 import com.softserve.itacademy.service.UserService;
@@ -83,11 +84,23 @@ public class TaskController {
 		taskService.create(task);
 		return "redirect:/tasks/all/todos/"+todoId;
 	}
-//	@GetMapping("/all/users/{owner_id}/delete/{todo_id}")
-//	public String delete(@PathVariable(name = "todo_id")long todo_id, @PathVariable(name = "owner_id") long owner_id) {
-//		toDoService.delete(todo_id);
-//		return "redirect:all/todos/" + todo_id;
-//	}
+	@GetMapping("all/todos/{todo_id}/deleteCollaborator/{collaborator_id}")
+	public String deleteCollaborator(@PathVariable(name = "todo_id")long todo_id, @PathVariable(name = "collaborator_id") long collaborator_id) {
+		List<User> collaborators = new ArrayList<>(toDoService.readById(todo_id).getCollaborators().stream().filter(user -> user.getId() != collaborator_id).collect(Collectors.toList()));
+		ToDo toDo = toDoService.readById(todo_id);
+		toDo.setCollaborators(collaborators);
+		toDoService.update(toDo);
+		return "redirect:/tasks/all/todos/" + todo_id;
+	}
+
+	@GetMapping("all/todos/{todo_id}/addCollaborator/{collaborator_id}")
+	public String addCollaborator(@PathVariable(name = "todo_id")long todo_id, @PathVariable(name = "collaborator_id") long collaborator_id) {
+		List<User> collaborators = new ArrayList<>(toDoService.readById(todo_id).getCollaborators().stream().filter(user -> user.getId() != collaborator_id).collect(Collectors.toList()));
+		ToDo toDo = toDoService.readById(todo_id);
+		toDo.setCollaborators(collaborators);
+		toDoService.update(toDo);
+		return "redirect:/tasks/all/todos/" + todo_id;
+	}
 
 //    @GetMapping("/create/todos/{todo_id}")
 //    public String create(//add needed parameters) {

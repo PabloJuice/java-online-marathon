@@ -40,17 +40,21 @@
         </tbody>
     </table>
 
-    <form class="table-form">
+    <form class="table-form" >
         <table>
             <thead>
                 <tr>
                     <th colspan="2">
-                        <select th:field = "${possible_collaborators}" class="selection">
-                            <option th:each = "i : ${possible_collaborators}" th:value = "${i.id}" th:text = "${i.firstName + ' '+ i.lastName}" selected>Role1</option>
+                        <select th:field = "${possible_collaborators}" class="selection" name="collabolatorAdd">
+                            <option  th:each = "i : ${possible_collaborators}" th:value = "${i.id}" th:text = "${i.firstName + ' '+ i.lastName}" selected>Role1</option>
                         </select>
                     </th>
                     <th>
-                        <input type="submit" value="Add" class="submit-btn">
+                        <a class="button-a" th:href="@{/tasks/all/todos/{todo_id}/addCollaborator/{collaborator_id}(collaborator_id = ${}, todo_id = ${todo_id})}">
+                            <button>
+                                Add
+                            </button>
+                        </a>
                     </th>
                 </tr>
             </thead>
@@ -58,7 +62,7 @@
                 <tr th:each = "collaborator: ${already_collaborators}">
                     <td th:text = "${collaborator.id}"></td>
                     <td th:text = "${collaborator.firstName + ' '+ collaborator.lastName}"></td>
-                    <td><a th:href="@{/todos/all/users/{user_id}/delete/{todo_id}(user_id = ${todo.owner.id}, todo_id = ${todo.id})}">Remove</a></td>
+                    <td><a th:href="@{/tasks/all/todos/{todo_id}/deleteCollaborator/{collaborator_id}(collaborator_id = ${collaborator.id}, todo_id = ${todo_id})}">Remove</a></td>
                 </tr>
             </tbody>
         </table>
