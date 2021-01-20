@@ -27,7 +27,11 @@ h1{
     align-self: center;
     margin: 1%;
 }
-button, .submit-btn{
+.button-a{
+    align-self: flex-end;
+    margin: 2% 5% 5% 5%;
+}
+button{
     outline: none;
     background-color:#0066ff;
     border-radius:15px;
@@ -39,8 +43,6 @@ button, .submit-btn{
     padding:20px 40px;
     text-decoration:none;
     text-shadow:1px 1px 5px #2f6627;
-    margin: 2% 5% 5% 5%;
-    align-self: flex-end;
 }
 button:hover, .submit-btn:hover{
     background-color: black;
@@ -98,9 +100,17 @@ table a{
     font-size: 16px;
 }
 .submit-btn{
+    background-color:#0066ff;
     min-width: 55px;
     font-size: 15px;
     padding: 15px 10%;
     margin: 3%;
     align-self: center;
+    border-radius:15px;
+    border: none;
+    cursor:pointer;
+    color:#ffffff;
+    font-family: "Roboto";
+    text-decoration:none;
+    text-shadow:1px 1px 5px #2f6627;
 }
