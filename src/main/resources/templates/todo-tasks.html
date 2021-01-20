@@ -43,15 +43,15 @@
     <form class="table-form" >
         <table>
             <thead>
-                <tr>
+                <tr th:with="current_collaborator_id = 0">
                     <th colspan="2">
                         <select th:field = "${possible_collaborators}" class="selection" name="collabolatorAdd">
-                            <option  th:each = "i : ${possible_collaborators}" th:value = "${i.id}" th:text = "${i.firstName + ' '+ i.lastName}" selected>Role1</option>
+                            <option th:with="current_collaborator_id = ${i.id}" th:each = "i : ${possible_collaborators}" th:value = "${i.id}" th:text = "${i.firstName + ' '+ i.lastName}" selected>Role1</option>
                         </select>
                     </th>
-                    <th>
-                        <a class="button-a" th:href="@{/tasks/all/todos/{todo_id}/addCollaborator/{collaborator_id}(collaborator_id = ${}, todo_id = ${todo_id})}">
-                            <button>
+                    <th >
+                        <a class="button-a" th:href="@{/tasks/all/todos/{todo_id}/addCollaborator/{collaborator_id}(collaborator_id = ${current_collaborator_id}, todo_id = ${todo_id})}">
+                            <button class="submit-btn">
                                 Add
                             </button>
                         </a>

@@ -95,7 +95,8 @@ public class TaskController {
 
 	@GetMapping("all/todos/{todo_id}/addCollaborator/{collaborator_id}")
 	public String addCollaborator(@PathVariable(name = "todo_id")long todo_id, @PathVariable(name = "collaborator_id") long collaborator_id) {
-		List<User> collaborators = new ArrayList<>(toDoService.readById(todo_id).getCollaborators().stream().filter(user -> user.getId() != collaborator_id).collect(Collectors.toList()));
+		List<User> collaborators = new ArrayList<>(toDoService.readById(todo_id).getCollaborators());
+		collaborators.add(userService.readById(collaborator_id));
 		ToDo toDo = toDoService.readById(todo_id);
 		toDo.setCollaborators(collaborators);
 		toDoService.update(toDo);
