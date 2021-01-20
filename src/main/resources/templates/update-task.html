@@ -16,29 +16,28 @@
     <h1>
         Update Task
     </h1>
-    <form class="main-form" method ="post">
-    <div class="name-input-block">
-        <p>ID:</p><input type="text" name="taskID" class="text-input" value="id123" readonly>
-    </div>
-    <div class="name-input-block">
-        <p>Name:</p><input type="text" name="taskName" class="text-input"  value="name123">
-    </div>
-    <div class="name-input-block">
-        <p>Priority:</p>
-        <select name="priority" class="selection">
-            <option value="LOW" selected>Low</option>
-            <option value="MEDIUM">Medium</option>
-            <option value="HIGH">High</option>
-        </select>
-    </div>
-    <div class="name-input-block">
-        <p>Status:</p>
-        <select name="status" class="selection">
-            <option value="New" selected>New</option>
-            <option value="Processing">Processing</option>
-            <option value="Done">Done</option>
-        </select>
-    </div>
+    <form class="main-form" th:action ="@{/tasks/{todo_id}/update/task/{task_id}(todo_id = ${todo_id}, task_id = ${task.id})}"
+          th:object = "${task}" method ="post">
+        <div class="name-input-block">
+            <p>ID:</p><input th:field = "*{id}" type="text" name="taskID" class="text-input" value="${task.id}" readonly>
+        </div>
+        <div class="name-input-block">
+            <p>Name:</p><input th:field ="*{name}" type="text" name="taskName" class="text-input"  value="${task.name}">
+        </div>
+        <div class="name-input-block">
+            <p>Priority:</p>
+            <select th:field ="*{priority}" name="priority" class="selection">
+                <option value="LOW" selected>Low</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HIGH">High</option>
+            </select>
+        </div>
+        <div class="name-input-block">
+            <p>Status:</p>
+            <select th:field = "*{state}" name="status" class="selection">
+                <option th:each = "i : ${states}" th:value = "${i.id}" th:text = "${i.name}"></option>
+            </select>
+        </div>
     <div class="name-input-block">
         <input type="submit" value="Register" class="submit-btn">
         <input type="reset" value="Clear" class="submit-btn">

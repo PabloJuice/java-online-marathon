@@ -16,8 +16,7 @@
     <h1 th:text = "${title}">
 
     </h1>
-<!--    th:href = ""-->
-    <a  class="button-a"><button>Create new Task</button></a>
+        <a class="button-a" th:href = "@{/tasks/{todo_id}/create/task(todo_id = ${todo_id})}"><button>Create new Task</button></a>
     <table>
         <thead>
         <tr>
@@ -35,8 +34,8 @@
             <td th:text = "${task.id}"></td>
             <td th:text = "${task.name}"></td>
             <td th:text = "${task.state.name}"></td>
-            <td><a href="">Edit</a></td>
-            <td><a href="">Remove</a></td>
+            <td><a th:href ="@{/tasks/{todo_id}/update/task/{task_id}(todo_id = ${todo_id},task_id = ${task.id})}">Edit</a></td>
+            <td><a th:href="@{/tasks/{todo_id}/delete/task/{task_id}(todo_id = ${todo_id},task_id = ${task.id})}">Remove</a></td>
         </tr>
         </tbody>
     </table>
@@ -59,7 +58,7 @@
                 <tr th:each = "collaborator: ${already_collaborators}">
                     <td th:text = "${collaborator.id}"></td>
                     <td th:text = "${collaborator.firstName + ' '+ collaborator.lastName}"></td>
-                    <td><a href="">Remove</a></td>
+                    <td><a th:href="@{/todos/all/users/{user_id}/delete/{todo_id}(user_id = ${todo.owner.id}, todo_id = ${todo.id})}">Remove</a></td>
                 </tr>
             </tbody>
         </table>
