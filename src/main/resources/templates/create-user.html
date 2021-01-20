@@ -13,24 +13,18 @@
             TODOs List
         </a>
     </header>
-    <h1>
-        Create new User
-    </h1>
-    <div class="name-input-block">
-        <p>First name:</p><input type="text" name="firstName" class="text-input">
-    </div>
-    <div class="name-input-block">
-        <p>Last name:</p><input type="text" name="lastName" class="text-input">
-    </div>
-    <div class="name-input-block">
-        <p>E-mail:</p><input type="text" name="email" class="text-input">
-    </div>
-    <div class="name-input-block">
-        <p>Password:</p><input type="text" name="password" class="text-input">
-    </div>
-    <div class="name-input-block">
-        <input type="submit" value="Register" class="submit-btn">
-        <input type="reset" value="Clear" class="submit-btn">
-    </div>
+    <h1>Create New User</h1>
+    <form th:action = "@{/users/createUser}" th:object = "${user}" method ="post">
+    	<p>FirstName: <input type = "text" th:field = "*{firstName}"></p>
+    	<p>LastName: <input type = "text" th:field = "*{lastName}"></p>
+    	<p>Email: <input type = "text" th:field = "*{email}"></p>
+    	<p>Password: <input type = "password" th:field = "*{password}"></p>
+    	<p>Role: <select th:field = "*{role}">
+    				<option value = "">---</option>
+    				<option th:each = "i : ${roles}" th:value = "${i.id}" th:text = "${i.name}"></option>
+    			</select>
+    	</p>
+    	<p><input type = "submit" value = "Create"/> <input type = "reset" value = "Clear"/></p>
+    </form>
 </body>
 </html>
