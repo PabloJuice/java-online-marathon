@@ -41,6 +41,19 @@ public class UserController {
 		userService.update(user);
 		return "redirect:/home";
 	}
+	
+	@GetMapping("/create")
+	public String create(Model model) {
+		model.addAttribute("user", new User());
+		model.addAttribute("roles", roleService.getAll());
+		return "create-user";
+	}
+	
+	@PostMapping("/createUser")
+	public String create(@ModelAttribute(name = "user") User user) {
+		userService.create(user);
+		return "redirect:/home";
+	}
 //    @GetMapping("/create")
 //    public String create(//add needed parameters) {
 //        //ToDo
