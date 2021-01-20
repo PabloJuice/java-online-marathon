@@ -27,7 +27,7 @@ public class UserController {
 	public String delete(@PathVariable(name = "user_id")long userId) {
 		userService.delete(userId);
 		return "redirect:/home";
-		}
+	}
 	
 	@GetMapping("/update/{user_id}")
 	public String update(@PathVariable(name = "user_id")long userId, Model model) {
@@ -77,10 +77,7 @@ public class UserController {
 //        //ToDo
 //        return " ";
 //    }
-//
-//
-//    
-//
+
 //    @GetMapping("/all")
 //    public String getAll(//add needed parameters) {
 //        //ToDo

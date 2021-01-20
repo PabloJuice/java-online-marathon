@@ -13,10 +13,10 @@
             TODOs List
         </a>
     </header>
-    <h1>
-        All ToDo Lists of User
+    <h1 th:text = ${title}>
+
     </h1>
-    <a class="button-a">
+    <a class="button-a" th:href = "@{/todos/all/users/{owner_id}/create/(owner_id = ${user_id})}">
         <button>
             Create new ToDo List
         </button>
@@ -28,7 +28,7 @@
             <th>Id</th>
             <th>Title</th>
             <th>Created At</th>
-            <th>Owner</th>
+            <th>Co-owner</th>
             <th colspan="2">Operations</th>
         </tr>
         </thead>
@@ -39,8 +39,8 @@
             <td><a th:href="@{/tasks/all/todos/{todo_id}(todo_id = ${todo.id})}" th:text="${todo.title}"></a></td>
             <td th:text = "${todo.createdAt.toLocalDate()}"></td>
             <td th:text = "${todo.owner.firstName} +' '+ ${todo.owner.lastName}"></td>
-            <td><a href="">Edit</a></td>
-            <td><a href="">Remove</a></td>
+            <td><a th:href="@{/todos/all/users/{user_id}/update/{todo_id}(user_id = ${todo.owner.id}, todo_id = ${todo.id})}">Edit</a></td>
+            <td><a th:href="@{/todos/all/users/{user_id}/delete/{todo_id}(user_id = ${todo.owner.id}, todo_id = ${todo.id})}">Remove</a></td>
         </tr>
         </tbody>
     </table>
