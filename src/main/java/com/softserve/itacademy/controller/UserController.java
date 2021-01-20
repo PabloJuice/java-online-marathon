@@ -52,7 +52,7 @@ public class UserController {
 	@PostMapping("/createUser")
 	public String create(@ModelAttribute(name = "user") User user) {
 		userService.create(user);
-		return "redirect:/home";
+		return "redirect:/todos/all/users/"+user.getId();
 	}
 //    @GetMapping("/create")
 //    public String create(//add needed parameters) {
