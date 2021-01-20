@@ -16,18 +16,24 @@
     <h1>
         Create new User
     </h1>
-    <form class="main-form" method ="post">
+    <form class="main-form" th:action = "@{/users/createUser}" th:object = "${user}" method ="post">
     <div class="name-input-block">
-        <p>First name:</p><input type="text" name="firstName" class="text-input">
+        <p>First name:</p><input type="text" name="firstName" class="text-input" th:field = "*{firstName}">
     </div>
     <div class="name-input-block">
-        <p>Last name:</p><input type="text" name="lastName" class="text-input">
+        <p>Last name:</p><input type="text" name="lastName" class="text-input" th:field = "*{lastName}">
     </div>
     <div class="name-input-block">
-        <p>E-mail:</p><input type="text" name="email" class="text-input">
+        <p>E-mail:</p><input type="text" name="email" class="text-input" th:field = "*{email}">
     </div>
     <div class="name-input-block">
-        <p>Password:</p><input type="text" name="password" class="text-input">
+        <p>Password:</p><input type="text" name="password" class="text-input" th:field = "*{password}">
+    </div>
+    <div class="name-input-block">
+        <p>Role:</p>
+        <select th:field = "*{role}" class="selection">
+            <option th:each = "i : ${roles}" th:value = "${i.id}" th:text = "${i.name}" selected>Role1</option>
+        </select>
     </div>
     <div class="name-input-block">
         <input type="submit" value="Register" class="submit-btn">
