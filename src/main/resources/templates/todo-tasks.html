@@ -13,8 +13,8 @@
             tasks List
         </a>
     </header>
-    <h1 th:text = ${title}>
-        
+    <h1 th:text = "${title}">
+
     </h1>
 <!--    th:href = ""-->
     <a  class="button-a"><button>Create new Task</button></a>
@@ -41,5 +41,28 @@
         </tbody>
     </table>
 
+    <form class="table-form">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <select th:field = "${possible_collaborators}" class="selection">
+                            <option th:each = "i : ${possible_collaborators}" th:value = "${i.id}" th:text = "${i.firstName + ' '+ i.lastName}" selected>Role1</option>
+                        </select>
+                    </th>
+                    <th>
+                        <input type="submit" value="Add" class="submit-btn">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each = "collaborator: ${already_collaborators}">
+                    <td th:text = "${collaborator.id}"></td>
+                    <td th:text = "${collaborator.firstName + ' '+ collaborator.lastName}"></td>
+                    <td><a href="">Remove</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
 </body>
 </html>

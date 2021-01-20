@@ -16,9 +16,15 @@
     <h1>
         Create new Todo
     </h1>
-    <form class="main-form" method ="post">
+    <form class="main-form" th:action = "@{/todos/all/users/{owner_id}/createToDo/(owner_id = ${todo.owner.getId()})}" th:object = "${todo}" method ="post">
     <div class="name-input-block">
-        <p>Title:</p><input type="text" name="title" class="text-input">
+        <p>Title:</p><input th:field = "*{title}" type="text" name="title" class="text-input">
+    </div>
+    <div class="name-input-block" style="display: none;">
+        <p>Created at:</p><input th:field = "*{createdAt}" type="text" name="todoID" class="text-input" value="id123" readonly>
+    </div>
+    <div class="name-input-block" style="display: none;">
+        <p>Created at:</p><input th:field = "*{owner}" type="text" name="todoID" class="text-input" value="id123" readonly>
     </div>
     <div class="name-input-block">
         <input type="submit" value="Register" class="submit-btn">

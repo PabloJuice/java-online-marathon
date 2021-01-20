@@ -16,12 +16,18 @@
     <h1>
         Update Todo
     </h1>
-    <form class="main-form" method ="post">
+    <form class="main-form" th:action = "@{/todos/all/users/{owner_id}/update/(owner_id = ${todo.owner.getId()})}" th:object = "${todo}" method ="post">
     <div class="name-input-block">
-        <p>ID:</p><input type="text" name="todoID" class="text-input" value="id123" readonly>
+        <p>ID:</p><input th:field = "*{id}" type="text" name="todoID" class="text-input" value="id123" readonly>
     </div>
     <div class="name-input-block">
-        <p>Title:</p><input type="text" name="title" class="text-input"  value="title123">
+        <p>Title:</p><input th:field = "*{title}" type="text" name="title" class="text-input"  value="title123">
+    </div>
+    <div class="name-input-block" style="display: none;">
+        <p>Created at:</p><input th:field = "*{createdAt}" type="text" name="todoID" class="text-input" value="id123" readonly>
+    </div>
+    <div class="name-input-block" style="display: none;">
+        <p>Created at:</p><input th:field = "*{owner}" type="text" name="todoID" class="text-input" value="id123" readonly>
     </div>
     <div class="name-input-block">
         <input type="submit" value="Register" class="submit-btn">
