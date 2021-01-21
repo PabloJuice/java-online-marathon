@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,7 +68,14 @@ public class StateServiceTests {
         state.setName("Readstate");
         state = stateService.create(state);
         stateService.delete(state.getId());
-        assertNull(stateService.readById(state.getId()));
+        boolean assertion = false;
+        try{
+            stateService.readById(state.getId());
+        }
+        catch (EntityNotFoundException entityNotFoundException){
+            assertion = true;
+        }
+        assertTrue(assertion);
     }
     @Test
     @Transactional

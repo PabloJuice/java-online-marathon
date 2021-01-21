@@ -12,8 +12,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +56,7 @@ public class ToDoServiceTests {
         ToDo toDo = new ToDo();
         toDo.setTitle("CreateTodo");
         toDo.setOwner(user);
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo = toDoService.create(toDo);
         assertTrue(toDoRepository.existsById(toDo.getId()));
     }
@@ -73,6 +78,7 @@ public class ToDoServiceTests {
         ToDo toDo = new ToDo();
         toDo.setTitle("CreateTodo");
         toDo.setOwner(user);
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo = toDoService.create(toDo);
         assertEquals(toDo, toDoService.readById(toDo.getId()));
     }
@@ -95,6 +101,7 @@ public class ToDoServiceTests {
         ToDo toDo2;
         toDo1.setTitle("UpdateTodo1");
         toDo1.setOwner(user);
+        toDo1.setCreatedAt(LocalDateTime.now());
         toDo1 = toDoService.create(toDo1);
         toDo1.setTitle("UpdateTodo2");
         toDo2 = toDoService.update(toDo1);
@@ -119,9 +126,17 @@ public class ToDoServiceTests {
         ToDo toDo = new ToDo();
         toDo.setTitle("DeleteTodo");
         toDo.setOwner(user);
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo = toDoService.create(toDo);
         toDoService.delete(toDo.getId());
-        assertNull(toDoService.readById(toDo.getId()));
+        boolean assertion = false;
+        try{
+            toDoService.readById(toDo.getId());
+        }
+        catch (EntityNotFoundException entityNotFoundException){
+            assertion = true;
+        }
+        assertTrue(assertion);
     }
     @Test
     @Transactional
@@ -142,6 +157,7 @@ public class ToDoServiceTests {
             ToDo toDo = new ToDo();
             toDo.setTitle("GetAllTodo"+i);
             toDo.setOwner(user);
+            toDo.setCreatedAt(LocalDateTime.now());
             toDo = toDoService.create(toDo);
             expectedToDos.add(toDo);
         }

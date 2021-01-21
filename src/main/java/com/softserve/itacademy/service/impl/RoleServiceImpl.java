@@ -33,7 +33,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role readById(long id) {
         Optional<Role> optional = roleRepository.findById(id);
+        if (optional.isPresent()) {
             return optional.get();
+        }
+        throw new EntityNotFoundException("Role with id " + id + " not found");
     }
 
     @Override

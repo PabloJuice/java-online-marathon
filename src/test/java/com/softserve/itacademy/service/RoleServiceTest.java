@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,14 @@ public class RoleServiceTest {
         role.setName("Readrole");
         role = roleService.create(role);
         roleService.delete(role.getId());
-        assertNull(roleService.readById(role.getId()));
+        boolean assertion = false;
+        try{
+            roleService.readById(role.getId());
+        }
+        catch (EntityNotFoundException entityNotFoundException){
+            assertion = true;
+        }
+        assertTrue(assertion);
     }
     @Test
     @Transactional

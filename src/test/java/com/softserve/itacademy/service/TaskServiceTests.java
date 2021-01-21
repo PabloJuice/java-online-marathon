@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +79,14 @@ public class TaskServiceTests {
         task.setPriority(Priority.MEDIUM);
         task = taskService.create(task);
         taskService.delete(task.getId());
-        assertNull(taskService.readById(task.getId()));
+        boolean assertion = false;
+        try{
+            taskService.readById(task.getId());
+        }
+        catch (EntityNotFoundException entityNotFoundException){
+            assertion = true;
+        }
+        assertTrue(assertion);
     }
     @Test
     @Transactional

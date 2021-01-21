@@ -13,6 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,8 @@ public class ToDoRepositoryTests {
     RoleRepository roleRepository;
 
     @Test
+    @Transactional
+    @DirtiesContext
     public void createUserTest(){
         User user = new User();
         user.setEmail("valid1@gmail.ua");
@@ -49,6 +52,7 @@ public class ToDoRepositoryTests {
 
         ToDo toDo = new ToDo();
         toDo.setTitle("Other");
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo.setOwner(user);
         toDo = toDoRepository.save(toDo);
 
@@ -58,6 +62,8 @@ public class ToDoRepositoryTests {
     }
 
     @Test
+    @Transactional
+    @DirtiesContext
     public void exceptionWhenCreateNonUniqueToDoTest(){
         User user = new User();
         user.setEmail("valid2@gmail.ua");
@@ -73,6 +79,7 @@ public class ToDoRepositoryTests {
         ToDo toDo = new ToDo();
         toDo.setTitle("ValidOther");
         toDo.setOwner(user);
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo = toDoRepository.save(toDo);
 
         LocalDate localDate = toDo.getCreatedAt().toLocalDate();
@@ -106,6 +113,7 @@ public class ToDoRepositoryTests {
         ToDo toDo = new ToDo();
         toDo.setTitle("CreateTodo");
         toDo.setOwner(user);
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo = toDoRepository.save(toDo);
         long expectedId = toDo.getId();
         assertEquals(expectedId, toDo.getId());
@@ -127,6 +135,7 @@ public class ToDoRepositoryTests {
 
         ToDo toDo = new ToDo();
         toDo.setTitle("DeleteTodo");
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo.setOwner(user);
         toDo = toDoRepository.save(toDo);
         toDoRepository.delete(toDo);
@@ -150,6 +159,7 @@ public class ToDoRepositoryTests {
         ToDo toDo = new ToDo();
         toDo.setTitle("DDeleteTodo");
         toDo.setOwner(user);
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo = toDoRepository.save(toDo);
         toDoRepository.deleteById(toDo.getId());
         assertFalse(toDoRepository.existsById(toDo.getId()));
@@ -172,6 +182,7 @@ public class ToDoRepositoryTests {
 
             ToDo toDo = new ToDo();
             toDo.setTitle("DeleteAllTodo" + i);
+            toDo.setCreatedAt(LocalDateTime.now());
             toDo.setOwner(user);
             toDo = toDoRepository.save(toDo);
             toDoRepository.save(toDo);
@@ -200,6 +211,7 @@ public class ToDoRepositoryTests {
         ToDo toDo = new ToDo();
         toDo.setTitle("CheckExistingTodo");
         toDo.setOwner(user);
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo = toDoRepository.save(toDo);
         ToDo finalToDo = toDo;
         assertTrue(toDoRepository.findAll().stream().anyMatch(toDo1 -> toDo1.getId() == finalToDo.getId()));
@@ -223,6 +235,7 @@ public class ToDoRepositoryTests {
         ToDo toDo = new ToDo();
         toDo.setTitle("CheckFindingTodo");
         toDo.setOwner(user);
+        toDo.setCreatedAt(LocalDateTime.now());
         toDo = toDoRepository.save(toDo);
         ToDo finalToDo = toDo;
         assertTrue(toDoRepository.findAll().stream().anyMatch(toDo1 -> toDo1.getId() == finalToDo.getId()));
@@ -248,6 +261,7 @@ public class ToDoRepositoryTests {
             ToDo toDo = new ToDo();
             toDo.setTitle("CheckReturnAll" + i);
             toDo.setOwner(user);
+            toDo.setCreatedAt(LocalDateTime.now());
             toDo = toDoRepository.save(toDo);
             expectedToDos.add(toDo);
         }
@@ -275,6 +289,7 @@ public class ToDoRepositoryTests {
             ToDo toDo = new ToDo();
             toDo.setTitle("CheckCounter" + i);
             toDo.setOwner(user);
+            toDo.setCreatedAt(LocalDateTime.now());
             toDo = toDoRepository.save(toDo);
             expectedToDos.add(toDo);
         }

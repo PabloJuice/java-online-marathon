@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class UserServiceTests {
         assertEquals(user1.getFirstName(), user2.getFirstName());
     }
 
-    @Test
+    @Test()
     @Transactional
     @DirtiesContext
     public void checkDeleteUser(){
@@ -100,7 +101,14 @@ public class UserServiceTests {
         user.setRole(role);
         user = userService.create(user);
         userService.delete(user.getId());
-        assertNull(userService.readById(user.getId()));
+        boolean assertion = false;
+        try{
+            userService.readById(user.getId());
+        }
+        catch (EntityNotFoundException entityNotFoundException){
+            assertion = true;
+        }
+        assertTrue(assertion);
     }
     @Test
     @Transactional
