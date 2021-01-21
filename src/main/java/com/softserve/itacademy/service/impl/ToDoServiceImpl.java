@@ -4,6 +4,7 @@ import com.softserve.itacademy.exception.NullEntityReferenceException;
 import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.repository.ToDoRepository;
 import com.softserve.itacademy.service.ToDoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,12 +14,8 @@ import java.util.Optional;
 
 @Service
 public class ToDoServiceImpl implements ToDoService {
-
+    @Autowired
     private ToDoRepository todoRepository;
-
-    public ToDoServiceImpl(ToDoRepository todoRepository) {
-        this.todoRepository = todoRepository;
-    }
 
     @Override
     public ToDo create(ToDo todo) {

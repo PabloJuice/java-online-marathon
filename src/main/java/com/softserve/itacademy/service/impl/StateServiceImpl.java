@@ -4,6 +4,7 @@ import com.softserve.itacademy.exception.NullEntityReferenceException;
 import com.softserve.itacademy.model.State;
 import com.softserve.itacademy.repository.StateRepository;
 import com.softserve.itacademy.service.StateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,11 +14,9 @@ import java.util.Optional;
 
 @Service
 public class StateServiceImpl implements StateService {
+    @Autowired
     private StateRepository stateRepository;
 
-    public StateServiceImpl(StateRepository stateRepository) {
-        this.stateRepository = stateRepository;
-    }
 
     @Override
     public State create(State state) {
