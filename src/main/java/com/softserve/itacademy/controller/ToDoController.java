@@ -6,6 +6,7 @@ import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.TaskService;
 import com.softserve.itacademy.service.ToDoService;
 import com.softserve.itacademy.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@Slf4j
 @RequestMapping("/todos")
 public class ToDoController {
 
@@ -44,6 +46,7 @@ public class ToDoController {
         }
         todo.setCreatedAt(LocalDateTime.now());
         todo.setOwner(userService.readById(ownerId));
+        log.info("Todo was created - " + todo);
         todoService.create(todo);
         return "redirect:/todos/all/users/" + ownerId;
     }
@@ -77,6 +80,7 @@ public class ToDoController {
         ToDo oldTodo = todoService.readById(todoId);
         todo.setOwner(oldTodo.getOwner());
         todo.setCollaborators(oldTodo.getCollaborators());
+        log.info("Todo updated - " + todo);
         todoService.update(todo);
         return "redirect:/todos/all/users/" + ownerId;
     }
@@ -101,6 +105,7 @@ public class ToDoController {
         List<User> collaborators = todo.getCollaborators();
         collaborators.add(userService.readById(userId));
         todo.setCollaborators(collaborators);
+        log.info("Collaborator added - " + todo);
         todoService.update(todo);
         return "redirect:/todos/" + id + "/tasks";
     }
@@ -111,6 +116,7 @@ public class ToDoController {
         List<User> collaborators = todo.getCollaborators();
         collaborators.remove(userService.readById(userId));
         todo.setCollaborators(collaborators);
+        log.info("Collaborator removed - " + todo);
         todoService.update(todo);
         return "redirect:/todos/" + id + "/tasks";
     }

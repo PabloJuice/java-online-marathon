@@ -7,13 +7,17 @@ import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.service.StateService;
 import com.softserve.itacademy.service.TaskService;
 import com.softserve.itacademy.service.ToDoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 @Controller
+@Slf4j
 @RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
@@ -30,7 +34,9 @@ public class TaskController {
     public String create(@PathVariable("todo_id") long todoId, Model model) {
         model.addAttribute("task", new TaskDto());
         model.addAttribute("todo", todoService.readById(todoId));
+        log.info("added attribute <todo> - " + todoService.readById(todoId));
         model.addAttribute("priorities", Priority.values());
+        log.info("added attribute <priorities> - " + Arrays.toString(Priority.values()));
         return "create-task";
     }
 
@@ -47,6 +53,7 @@ public class TaskController {
                 todoService.readById(taskDto.getTodoId()),
                 stateService.getByName("New")
         );
+        log.info("Task created - " + task);
         taskService.create(task);
         return "redirect:/todos/" + todoId + "/tasks";
     }
@@ -73,12 +80,14 @@ public class TaskController {
                 todoService.readById(taskDto.getTodoId()),
                 stateService.readById(taskDto.getStateId())
         );
+        log.info("Task updated - " + task);
         taskService.update(task);
         return "redirect:/todos/" + todoId + "/tasks";
     }
 
     @GetMapping("/{task_id}/delete/todos/{todo_id}")
     public String delete(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId) {
+        log.info("Task deleted - " + taskService.readById(taskId));
         taskService.delete(taskId);
         return "redirect:/todos/" + todoId + "/tasks";
     }

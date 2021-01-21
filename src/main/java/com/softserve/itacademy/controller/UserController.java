@@ -3,6 +3,8 @@ package com.softserve.itacademy.controller;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.RoleService;
 import com.softserve.itacademy.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@Slf4j
 @RequestMapping("/users")
 public class UserController {
 
@@ -34,6 +37,7 @@ public class UserController {
         }
         user.setPassword(user.getPassword());
         user.setRole(roleService.readById(2));
+        log.info("User created - " + user);
         User newUser = userService.create(user);
         return "redirect:/todos/all/users/" + newUser.getId();
     }
@@ -67,6 +71,7 @@ public class UserController {
         } else {
             user.setRole(roleService.readById(roleId));
         }
+        log.info("User updated - " + user);
         userService.update(user);
         return "redirect:/users/" + id + "/read";
     }
@@ -74,6 +79,7 @@ public class UserController {
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id) {
+        log.info("User deleted - " + userService.readById(id));
         userService.delete(id);
         return "redirect:/users/all";
     }
@@ -81,6 +87,7 @@ public class UserController {
     @GetMapping("/all")
     public String getAll(Model model) {
         model.addAttribute("users", userService.getAll());
+        log.info("Get all - " + userService.getAll());
         return "users-list";
     }
 }
