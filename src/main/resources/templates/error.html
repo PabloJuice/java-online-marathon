@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+    <div th:replace="header"></div>
+    <br>
+    <h1 style="margin: 0 auto; width: max-content" th:text="${code}"></h1>
+    <h2 style="margin: 0 auto; width: max-content" th:text="${message}"></h2>
+
+</body>
+</html>
