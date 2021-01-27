@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Error!</title>
@@ -9,8 +9,7 @@
 <body>
     <div th:replace="header"></div>
     <br>
-    <h1  th:text="${code}"></h1>
-    <h2 th:text="${message}"></h2>
-
+    <h1 style="margin: 0 auto; width: max-content; padding: 1.5%;" th:text="${code}"></h1>
+    <h2 style="margin: 0 auto; width: max-content; padding: 1.5%;" th:text="${message}"></h2>
 </body>
 </html>

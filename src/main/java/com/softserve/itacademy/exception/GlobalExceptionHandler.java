@@ -23,10 +23,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(value= HttpStatus.NOT_FOUND)
     public ModelAndView entityNotFoundExceptionHandler(HttpServletRequest request, EntityNotFoundException exception) {
+
         return getModelAndView(request, HttpStatus.NOT_FOUND, exception);
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView internalServerErrorHandler(HttpServletRequest request, Exception exception) {
         return getModelAndView(request, HttpStatus.INTERNAL_SERVER_ERROR, exception);
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler {
         logger.error("Exception raised = {} :: URL = {}", exception.getMessage(), request.getRequestURL());
         ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("code", httpStatus.value() + " / " + httpStatus.getReasonPhrase());
-        modelAndView.addObject("message", exception.getMessage());
+        modelAndView.addObject("message", (exception.getMessage() == null || exception.getMessage().isEmpty()|| exception.getMessage().equals("Target object must not be null; nested exception is java.lang.IllegalArgumentException: Target object must not be null"))? "lol" : exception.getMessage());
         return modelAndView;
     }
 }
