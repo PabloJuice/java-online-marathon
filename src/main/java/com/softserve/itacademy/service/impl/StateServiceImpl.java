@@ -23,7 +23,7 @@ public class StateServiceImpl implements StateService {
     public State create(State state) {
         try {
             return stateRepository.save(state);
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             throw new NullEntityReferenceException("State cannot be 'null'");
         }
     }

@@ -24,7 +24,7 @@ public class RoleServiceImpl implements RoleService {
     public Role create(Role role) {
         try {
             return roleRepository.save(role);
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             throw new NullEntityReferenceException("Role cannot be 'null'");
         }
     }

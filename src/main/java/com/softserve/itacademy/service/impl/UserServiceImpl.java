@@ -23,9 +23,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         try {
-//            user = null;
+            user = null;
             return userRepository.save(user);
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
             throw new NullEntityReferenceException("User cannot be 'null'");
         }
     }

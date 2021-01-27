@@ -15,22 +15,15 @@ public class GlobalExceptionHandler {
     Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(NullEntityReferenceException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView nullEntityReferenceExceptionHandler(HttpServletRequest request, NullEntityReferenceException exception) {
-        return getModelAndView(request, HttpStatus.BAD_REQUEST, exception);
+        return getModelAndView(request, HttpStatus.INTERNAL_SERVER_ERROR, exception);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(value= HttpStatus.NOT_FOUND)
     public ModelAndView entityNotFoundExceptionHandler(HttpServletRequest request, EntityNotFoundException exception) {
-
         return getModelAndView(request, HttpStatus.NOT_FOUND, exception);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
-    public ModelAndView internalServerErrorHandler(HttpServletRequest request, Exception exception) {
-        return getModelAndView(request, HttpStatus.INTERNAL_SERVER_ERROR, exception);
     }
 
     private ModelAndView getModelAndView(HttpServletRequest request, HttpStatus httpStatus, Exception exception) {
@@ -40,4 +33,10 @@ public class GlobalExceptionHandler {
         modelAndView.addObject("message", (exception.getMessage() == null || exception.getMessage().isEmpty()|| exception.getMessage().equals("Target object must not be null; nested exception is java.lang.IllegalArgumentException: Target object must not be null"))? "lol" : exception.getMessage());
         return modelAndView;
     }
+    //    @ExceptionHandler(RuntimeException.class)
+    //    @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
+    //    public ModelAndView internalServerErrorHandler(HttpServletRequest request, Exception exception) {
+    //        return getModelAndView(request, HttpStatus.BAD_REQUEST, exception);
+    //    }
+
 }

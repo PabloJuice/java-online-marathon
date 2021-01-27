@@ -23,7 +23,7 @@ public class TaskServiceImpl implements TaskService {
     public Task create(Task user) {
         try {
             return taskRepository.save(user);
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             throw new NullEntityReferenceException("Task cannot be 'null'");
         }
     }
