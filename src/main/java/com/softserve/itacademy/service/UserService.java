@@ -3,6 +3,7 @@ package com.softserve.itacademy.service;
 import com.softserve.itacademy.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User create(User user);
