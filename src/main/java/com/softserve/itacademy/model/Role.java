@@ -1,8 +1,13 @@
 package com.softserve.itacademy.model;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -19,6 +24,12 @@ public class Role {
     private List<User> users;
 
     public Role() {
+    }
+
+    public List<SimpleGrantedAuthority> getAuthority(){
+        List<SimpleGrantedAuthority> result = new ArrayList<>();
+        result.add(new SimpleGrantedAuthority(name));
+        return result;
     }
 
     public long getId() {
